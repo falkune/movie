@@ -1,0 +1,29 @@
+.hero {
+    background-size: cover;
+    background-position: center;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 3em;
+    margin-bottom: 30px;
+}
+
+.cta {
+    background-color: #c64600;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    margin-top: 30px;
+}
+
+.section {
+    background-color: #f7f7f7;
+    padding: 50px 0;
+}

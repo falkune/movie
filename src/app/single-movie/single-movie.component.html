@@ -1,0 +1,8 @@
+<div class="movie-card">
+    <img src="https://image.tmdb.org/t/p/w500/{{theMovie.poster_path}}" alt="Affiche du film">
+    <p>
+        <em>{{ theMovie.vote_average }}</em>
+        <span class="godetail" (click)="overViewMovie()"> <a>V<fa-icon [icon]="faEye"></fa-icon>ir   plus</a> </span>
+        <span (click)="addToFavorite()" class="link"><fa-icon [icon]="faHeart"></fa-icon></span>
+    </p>
+</div>

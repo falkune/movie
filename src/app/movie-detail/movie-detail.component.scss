@@ -1,0 +1,86 @@
+.movie-details {
+    background-color: #212529;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px #70798c;
+    margin: 70px 20px;
+
+    .back {
+        a {
+            color: #FFF;
+            font-size: x-large;
+        }
+        :hover {
+            cursor: pointer;
+        }
+    }
+
+    .banner {
+        img {
+            width: 100%;
+            height: 600px;
+        }
+    }
+
+    .main {
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 50px auto;
+
+        .left {
+            width: 50%;
+            color: #FFF;
+
+            h2 {
+                margin-bottom: 0;
+                font-size: 2.5em;
+            }
+
+            p {
+                font-size: 1em;
+                margin: 5px 0;
+            }
+
+            span {
+                font-size: 1em;
+                color: #c64600;
+            }
+        }
+
+        .right {
+            width: 30%;
+
+            img {
+                width: 100%;
+                border-radius: 10px;
+            }
+        }
+
+        .unknow {
+            display: flex;
+            justify-content: space-between;
+
+            .favorite {
+                font-size: xx-large;
+                color: #FFF;
+
+                :hover {
+                    cursor: pointer;
+                    color: #c64600;
+                }
+            }
+
+            .rate {
+                color: #343a40;
+                font-size: xx-large;
+
+                :hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+    }
+}
