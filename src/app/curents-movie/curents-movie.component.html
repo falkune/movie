@@ -1,1 +1,4 @@
-<p>curents-movie works!</p>
+<h2>Now Playing</h2>
+<div class="movie-list">
+    <app-single-movie *ngFor="let movie of nowPlaying" [theMovie]="movie"></app-single-movie>
+</div>

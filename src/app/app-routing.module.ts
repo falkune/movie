@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { CurentsMovieComponent } from './curents-movie/curents-movie.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'moviedetails/:id', component: MovieDetailComponent },
   { path: 'movies', component: MovieListComponent },
   { path: 'actors', component: ActorListComponent },

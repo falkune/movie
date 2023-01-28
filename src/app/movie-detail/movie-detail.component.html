@@ -1,15 +1,15 @@
 <div class="movie-details">
-    <p class="back"><a routerLink="/movies"><fa-icon [icon]="faArrowLeft"></fa-icon></a></p>
+    <p class="back"><a (click)="back()"><fa-icon [icon]="faArrowLeft"></fa-icon></a></p>
     <div class="banner">
-        <img src="https://image.tmdb.org/t/p/w500/{{theMovie.backdrop_path}}" alt="Affiche du film">
+        <img *ngIf="theMovie?.backdrop_path" src="https://image.tmdb.org/t/p/w500/{{theMovie.backdrop_path}}" alt="Affiche du film">
     </div>
     <div class="main">
         <div class="left">
-            <h2>{{ theMovie.title }}</h2>
-            <p> Release date : {{ theMovie.release_date }}</p>
-            <p class="average">Average : {{ theMovie.vote_average }}</p>
-            <p>Popularity : {{ theMovie.popularity }}</p>
-            <p>{{ theMovie.overview }}</p>
+            <h2 *ngIf="theMovie?.title">{{ theMovie.title }}</h2>
+            <p *ngIf="theMovie?.release_date"> Release date : {{ theMovie.release_date }}</p>
+            <p *ngIf="theMovie?.vote_average" class="average">Average : {{ theMovie.vote_average }}</p>
+            <p *ngIf="theMovie?.popularity">Popularity : {{ theMovie.popularity }}</p>
+            <p *ngIf="theMovie?.overview">{{ theMovie.overview }}</p>
             <div class="unknow">
                 <p class="rate">
                     <fa-icon [icon]="faStar"></fa-icon>
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="right">
-            <img src="https://image.tmdb.org/t/p/w500/{{theMovie.poster_path}}" alt="Bannière du film">
+            <img *ngIf="theMovie?.poster_path" src="https://image.tmdb.org/t/p/w500/{{theMovie.poster_path}}" alt="Bannière du film">
         </div>
     </div>
 </div>

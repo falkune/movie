@@ -14,11 +14,12 @@ export class MovieListComponent implements OnInit {
   constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
-    this.setMovieList()
-  }
-
-  async setMovieList(){
-    this.movieList = await this.movieService.getMovieList();
+    this.movieService.getMovieList()
+    .subscribe(data => {
+      this.movieList = data.results;
+      this.movieService.movieList = data.results;
+      this.movieService.totalPages = data.totalPages;
+    })
   }
 
 }

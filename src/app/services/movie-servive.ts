@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Movie } from "../models/movie-model";
 import { environment } from "src/environments/environment";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -8,91 +10,77 @@ import { environment } from "src/environments/environment";
 
 export class MovieService {
 
-    movieList!: Movie[] // array of movies
-    curentPage: number = 1; // curent page
-    totalPages!: number; // total page 
-    theLatest!: Movie; // latest movie
+    moviesInformation!: object;
+    movieList!: Movie[];
+    curentPage: number = 1;
+    totalPages!: number;
+    theLatest!: Movie;
 
-    getData(url: string): Promise<any> {
+    constructor(private http: HttpClient) { }
+
+    getData(url: string): Observable<any> {
         /**
          * this function take a url as parameter and fetch data and return the result
+         * the results is a observable 
          */
-        return new Promise((resolve, reject) => {
-            fetch(url)
-                .then((response: any) => {
-                    if (response.status !== 200) {
-                        return
-                    }
-                    response.json()
-                        .then((data: Movie[]) => resolve(data))
-                })
-                .catch((error: any) => { reject(error) })
-        })
+        return this.http.get(url);
     }
 
-    getData1(url: string):any {
+    getMovieList(): Observable<any> {
         /**
-         * this function take a url as parameter and fetch data and return the result
+         * this function return the movies information like :
+         * total results correspond to total movie in database
+         * total pages corresponde to the number of pages on which the results are distributed
+         * curent page the curent page
+         * it use the getData function to fetch data from the API
          */
-        fetch(url)
-            .then((response: any) => {
-                if (response.status !== 200) {
-                    return
-                }
-                response.json()
-                    .then((data: Movie[]) => {return data})
-            })
-            .catch((error: any) => { return error })
-
+        const url: string = `https://api.themoviedb.org/3/movie/popular?api_key=${environment.API_KEY}&language=en-US&page=${this.curentPage}`;
+        return this.moviesInformation = this.getData(url);
     }
 
-    async setMovieList(): Promise<void> {
-        /**
-         * this function fetch movies from the movie database and initialise movielist and total_page
-         * it use the getData function for feching data from api
-         */
-        const movielist = await this.getData(`https://api.themoviedb.org/3/movie/popular?api_key=${environment.API_KEY}&language=en-US&page=${this.curentPage}`);
-        this.movieList = movielist.results;
-        this.totalPages = movielist.total_pages;
-    }
-
-
-    async getMovieList(): Promise<Movie[]> {
-        /**
-         * this function return the moviList initalise by setMovieList function
-         */
-        await this.setMovieList();
-        return this.movieList;
-    }
-
-    getMovie(movieId: number): Movie {
+    getMovie(movieId: number): Observable<any> {
         /**
          * this function return movie who's id is the same value with the parametter movieId
+         * for this he loop in the movieList array and compare all movie's id by movieId param
+         * and return the movie who respect the condition
          */
-        const themovie = this.movieList.find(movie => movie.id === movieId);
-        if (!themovie) {
-            throw new Error('Movie not found!')
-        } else {
-            return themovie;
-        }
+        const url: string = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${environment.API_KEY}&language=en-US`
+        return this.getData(url);
     }
 
-    async setLatest(): Promise<void> {
+    getTopRated(): Observable<any>{
         /**
-         * this function get the most newly created movie.
-         * it use getData function to fetch data from api
+         * this function return top rated movie from database
+         * it use getData function to fetch data
          */
-        const latest = await this.getData(`https://api.themoviedb.org/3/movie/latest?api_key=${environment.API_KEY}&language=en-US`);
-        this.theLatest = latest;
-        // console.log(latest, this.theLatest)
-        // return latest;
+        const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${environment.API_KEY}&language=en-US&page=${this.curentPage}`;
+        return this.getData(url);
     }
 
-    async getLatest(): Promise<Movie> {
+    getLatest(): Observable<any> {
         /**
          * this function return the latest movie
+         *  it use the getData function to fetch data from the API
          */
-        await this.setLatest();
-        return this.theLatest;
+        const url: string = `https://api.themoviedb.org/3/movie/latest?api_key=${environment.API_KEY}&language=en-US`;
+        return this.getData(url);
+    }
+
+    getNowPlaying(): Observable<any>{
+        /**
+         * this function get the movies now playing in the theater
+         * for this it use getData function to fetch data from API
+         */
+        const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${environment.API_KEY}&language=en-US&page=${this.curentPage}`;
+        return this.getData(url);
+    }
+
+    getUpComing(): Observable<any> {
+        /**
+         * this function get a list of upcoming movies in theatres
+         * for this it use getData function to fetch data from API
+         */
+        const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${environment.API_KEY}&language=en-US&page=${this.curentPage}`;
+        return this.getData(url);
     }
 }

@@ -2,6 +2,7 @@ import { Component, Input, OnInit} from '@angular/core';
 import { Movie } from '../models/movie-model';
 import { MovieService } from '../services/movie-servive';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { faFilm, faArrowRight, faArrowLeft, faHeart, faStar, faEye, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,6 +12,7 @@ import { faFilm, faArrowRight, faArrowLeft, faHeart, faStar, faEye, faPlus } fro
 })
 export class MovieDetailComponent implements OnInit {
 
+  @Input()
   theMovie!: Movie
 
   filmIcon = faFilm;
@@ -21,11 +23,17 @@ export class MovieDetailComponent implements OnInit {
   faPlus = faPlus;
   faArrowLeft = faArrowLeft;
 
-  constructor(private movieservice: MovieService, private route: ActivatedRoute){}
+  constructor(private movieservice: MovieService, private route: ActivatedRoute, private location: Location){}
   
   ngOnInit(): void {
     const movieId = +this.route.snapshot.params['id'];
-    this.theMovie = this.movieservice.getMovie(movieId);
+    this.movieservice.getMovie(movieId)
+    .subscribe(data => {
+      this.theMovie = data;
+    })
   }
 
+  back(){
+    this.location.back();
+  }
 }

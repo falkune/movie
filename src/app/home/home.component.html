@@ -1,6 +1,27 @@
-<section class="hero">
+<section class="hero" *ngIf="url" [style.backgroundImage]="'url(' + url + ')'">
     <div class="container">
-        <h2>Welcome to our movie site!</h2>
-        <a href="#featured" class="cta">Movies currently playing</a>
+        <h2>check out the latest movie!</h2>
+        <h2 *ngIf="theLatest?.title"> {{ theLatest.title }}</h2>
+        <p>
+            <a (click)="overViewMovie()" class="cta">show more <fa-icon [icon]="faArrowRight"></fa-icon></a>
+        </p>
     </div>
 </section>
+
+<div class="top-rated">
+    <h2>Up Coming</h2>
+    <div id="upcom" class="rated">
+        <button class="btn-left" (click)="leftScroll('upcom')"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
+        <app-movie-card id="scroll-images" *ngFor="let movie of upComming" [theMovie]="movie"></app-movie-card>
+        <button class="btn-right" (click)="rightScroll('upcom')"><fa-icon [icon]="faArrowRight"></fa-icon></button>
+    </div>
+</div>
+
+<div class="top-rated">
+    <h2>Top Rated</h2>
+    <div id="rated" class="rated">
+        <button class="btn-left" (click)="leftScroll('rate')"><fa-icon [icon]="faArrowLeft"></fa-icon></button>
+        <app-movie-card id="scroll-images" *ngFor="let movie of topRated" [theMovie]="movie"></app-movie-card>
+        <button class="btn-right" (click)="rightScroll('rate')"><fa-icon [icon]="faArrowRight"></fa-icon></button>
+    </div>
+</div>

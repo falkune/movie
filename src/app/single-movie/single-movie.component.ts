@@ -20,7 +20,6 @@ export class SingleMovieComponent {
   theMovie!: Movie;
 
   addToFavorite(){
-    alert('in favorite !')
     // do the job hear
   }
 
