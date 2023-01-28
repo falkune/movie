@@ -30,7 +30,7 @@ yarn-error.log
 
 # ingnor environement 
 src/environments/
-vscode/
+.vscode/
 
 # Miscellaneous
 /.angular/cache
